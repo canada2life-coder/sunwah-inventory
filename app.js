@@ -164,3 +164,157 @@ alert(
 
 
 }
+function openSearchPage(){
+
+
+document.body.innerHTML = `
+
+
+<header>
+
+<div class="logo">
+SW
+</div>
+
+<h1>
+查詢庫存
+</h1>
+
+</header>
+
+
+
+<div class="status">
+
+
+<input 
+id="searchBarcode"
+placeholder="輸入 Barcode"
+style="width:100%;height:45px;"
+>
+
+
+<br><br>
+
+
+<button 
+onclick="searchProduct()"
+style="width:100%;height:55px;font-size:20px;"
+>
+
+查詢
+
+</button>
+
+
+
+<div id="result">
+
+</div>
+
+
+</div>
+
+
+`;
+
+}
+
+
+
+async function searchProduct(){
+
+
+let barcode =
+document.getElementById(
+"searchBarcode"
+).value;
+
+
+
+let product =
+await getProduct(
+barcode
+);
+
+
+
+let result =
+document.getElementById(
+"result"
+);
+
+
+
+if(product){
+
+
+let status =
+"✅ 正常";
+
+
+if(
+product.stock <= product.minStock
+){
+
+status =
+"⚠️ 需要補貨";
+
+}
+
+
+
+result.innerHTML = `
+
+
+<h2>
+${product.name}
+</h2>
+
+
+<p>
+分類：
+${product.category}
+</p>
+
+
+<p>
+庫存：
+${product.stock}
+</p>
+
+
+<p>
+最低庫存：
+${product.minStock}
+</p>
+
+
+<p>
+有效期：
+${product.expiry}
+</p>
+
+
+<h3>
+${status}
+</h3>
+
+
+`;
+
+
+}
+
+else{
+
+
+result.innerHTML =
+
+"❌ 找不到商品";
+
+
+}
+
+
+}
