@@ -1,8 +1,88 @@
-initDatabase();
+// SunWah Inventory Pro
+// Main Controller
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+updateDashboard();
+
+});
 
 
 
-function openProductPage(){
+async function updateDashboard(){
+
+
+if(typeof getAllProducts !== "undefined"){
+
+
+let products =
+await getAllProducts();
+
+
+let total =
+document.getElementById(
+"totalProducts"
+);
+
+
+if(total){
+
+total.innerHTML =
+products.length;
+
+}
+
+
+}
+
+
+
+}
+
+
+
+
+function home(){
+
+
+location.reload();
+
+
+}
+
+
+
+
+function createBackButton(){
+
+
+return `
+
+<button onclick="home()"
+
+style="
+width:100%;
+height:50px;
+font-size:18px;
+border-radius:15px;
+margin-top:20px;
+">
+
+⬅️ 返回首頁
+
+</button>
+
+`;
+
+}
+
+
+
+
+function openProducts(){
 
 
 document.body.innerHTML = `
@@ -13,86 +93,42 @@ document.body.innerHTML = `
 <div class="logo">
 SW
 </div>
-
 
 <h1>
 商品管理
 </h1>
 
-
 <p>
 Product Management
 </p>
-
 
 </header>
 
 
 
-<div class="status">
+<div class="dashboard">
 
 
 <h2>
-新增商品
+商品管理功能
 </h2>
 
 
-<input id="barcode"
-placeholder="Barcode"
-style="width:100%;height:45px;">
+<button>
 
-
-<br><br>
-
-
-<input id="name"
-placeholder="商品名稱"
-style="width:100%;height:45px;">
-
-
-<br><br>
-
-
-<input id="category"
-placeholder="分類"
-style="width:100%;height:45px;">
-
-
-<br><br>
-
-
-<input id="stock"
-type="number"
-placeholder="目前庫存"
-style="width:100%;height:45px;">
-
-
-<br><br>
-
-
-<input id="minStock"
-type="number"
-placeholder="最低庫存"
-style="width:100%;height:45px;">
-
-
-<br><br>
-
-
-<input id="expiry"
-type="date"
-style="width:100%;height:45px;">
-
-
-<br><br>
-
-
-<button onclick="saveProduct()"
-style="width:100%;height:55px;font-size:20px;">
-
-保存商品
+➕ 新增商品
 
 </button>
+
+
+<button>
+
+📋 商品列表
+
+</button>
+
+
+${createBackButton()}
 
 
 </div>
@@ -104,70 +140,8 @@ style="width:100%;height:55px;font-size:20px;">
 
 
 
-function saveProduct(){
 
-
-let product = {
-
-
-barcode:
-document.getElementById(
-"barcode"
-).value,
-
-
-name:
-document.getElementById(
-"name"
-).value,
-
-
-category:
-document.getElementById(
-"category"
-).value,
-
-
-stock:
-Number(
-document.getElementById(
-"stock"
-).value
-),
-
-
-minStock:
-Number(
-document.getElementById(
-"minStock"
-).value
-),
-
-
-expiry:
-document.getElementById(
-"expiry"
-).value
-
-
-};
-
-
-
-addProduct(product);
-
-
-
-alert(
-"商品保存成功"
-);
-
-
-}
-
-
-
-function openSearchPage(){
+function openSearch(){
 
 
 document.body.innerHTML = `
@@ -180,40 +154,49 @@ SW
 </div>
 
 <h1>
-查詢庫存
+查庫存
 </h1>
 
 </header>
 
 
 
-<div class="status">
+<div class="dashboard">
 
 
-<input 
-id="searchBarcode"
+<input
+
 placeholder="輸入 Barcode"
-style="width:100%;height:45px;"
+
+style="
+width:100%;
+height:50px;
+font-size:20px;
+"
+
+
 >
 
 
 <br><br>
 
 
-<button 
-onclick="searchProduct()"
-style="width:100%;height:55px;font-size:20px;"
+<button
+
+style="
+width:100%;
+height:55px;
+font-size:20px;
+"
+
 >
 
-查詢
+🔍 查詢
 
 </button>
 
 
-
-<div id="result">
-
-</div>
+${createBackButton()}
 
 
 </div>
@@ -225,99 +208,78 @@ style="width:100%;height:55px;font-size:20px;"
 
 
 
-async function searchProduct(){
+
+function openScanner(){
 
 
-let barcode =
-document.getElementById(
-"searchBarcode"
-).value;
-
-
-
-let product =
-await getProduct(
-barcode
+alert(
+"Barcode Scanner 功能下一步加入"
 );
 
 
+}
 
-let result =
-document.getElementById(
-"result"
+
+
+
+function openStockIn(){
+
+
+alert(
+"入貨功能下一步加入"
 );
 
 
-
-if(product){
-
-
-let status =
-"✅ 正常";
+}
 
 
-if(
-product.stock <= product.minStock
-){
 
-status =
-"⚠️ 需要補貨";
+
+function openStockOut(){
+
+
+alert(
+"出貨功能下一步加入"
+);
+
 
 }
 
 
 
-result.innerHTML = `
+
+function openCount(){
 
 
-<h2>
-${product.name}
-</h2>
-
-
-<p>
-分類：
-${product.category}
-</p>
-
-
-<p>
-庫存：
-${product.stock}
-</p>
-
-
-<p>
-最低庫存：
-${product.minStock}
-</p>
-
-
-<p>
-有效期：
-${product.expiry}
-</p>
-
-
-<h3>
-${status}
-</h3>
-
-
-`;
+alert(
+"盤點功能下一步加入"
+);
 
 
 }
 
-else{
 
 
-result.innerHTML =
 
-"❌ 找不到商品";
+function openAlerts(){
+
+
+alert(
+"有效期及低庫存提醒下一步加入"
+);
 
 
 }
+
+
+
+
+function openSettings(){
+
+
+alert(
+"設定功能下一步加入"
+);
 
 
 }
