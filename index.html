@@ -9,22 +9,17 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-
 <title>
-SunWah Inventory
+SunWah Inventory Pro
 </title>
 
 
-<link rel="stylesheet"
-href="style.css">
+<link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
 
 
-<link rel="manifest"
-href="manifest.json">
-
-
-<meta name="theme-color"
-content="#b71c1c">
+<meta name="theme-color" content="#b71c1c">
 
 
 </head>
@@ -38,18 +33,19 @@ content="#b71c1c">
 
 <header>
 
+
 <div class="logo">
 SW
 </div>
 
 
 <h1>
-SunWah Supermarket
+SunWah Inventory
 </h1>
 
 
 <p>
-Inventory System
+Supermarket Stock System
 </p>
 
 
@@ -57,92 +53,93 @@ Inventory System
 
 
 
-<section class="dashboard">
+<section class="menu">
 
 
-<div class="card">
+<button onclick="openScanner()">
 
-<h3>
+📷
+<br>
+掃描商品
+
+</button>
+
+
+
+<button onclick="openStockIn()">
+
 📦
-</h3>
-
-<p>
+<br>
 入貨
-</p>
 
-</div>
-
+</button>
 
 
-<div class="card">
 
-<h3>
+<button onclick="openStockOut()">
+
 📤
-</h3>
-
-<p>
+<br>
 出貨
-</p>
 
-</div>
-
+</button>
 
 
-<div class="card" onclick="openSearchPage()">
 
-<h3>
+<button onclick="openSearch()">
+
 🔍
-</h3>
-
-<p>
+<br>
 查庫存
-</p>
 
-</div>
-
+</button>
 
 
-<div class="card">
 
-<h3>
+<button onclick="openProducts()">
+
 📋
-</h3>
-
-<p>
-盤點
-</p>
-
-</div>
-
-
-
-<div class="card warning">
-
-<h3>
-⚠️
-</h3>
-
-<p>
-提醒
-</p>
-
-</div>
-
-
-
-<div class="card" onclick="openProductPage()">
-
-⚙️
 <br>
 商品管理
 
-</div>
+</button>
+
+
+
+<button onclick="openCount()">
+
+📝
+<br>
+盤點
+
+</button>
+
+
+
+<button onclick="openAlerts()">
+
+⚠️
+<br>
+提醒
+
+</button>
+
+
+
+<button onclick="openSettings()">
+
+⚙️
+<br>
+設定
+
+</button>
+
 
 </section>
 
 
 
-<section class="status">
+<section class="dashboard">
 
 
 <h2>
@@ -150,27 +147,28 @@ Inventory System
 </h2>
 
 
-<div class="status-box">
+<div class="info">
+
 
 <p>
-📦 今日入貨：
-<span id="stockIn">
+📦 商品數量：
+<span id="totalProducts">
 0
 </span>
 </p>
 
 
 <p>
-📤 今日出貨：
-<span id="stockOut">
+⚠️ 低庫存：
+<span id="lowStock">
 0
 </span>
 </p>
 
 
 <p>
-⚠️ 需要提醒：
-<span id="alerts">
+⏰ 快到期：
+<span id="expiryCount">
 0
 </span>
 </p>
@@ -186,7 +184,10 @@ Inventory System
 </div>
 
 
+
+
 <script src="database.js"></script>
+
 <script src="app.js"></script>
 
 
