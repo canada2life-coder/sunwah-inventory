@@ -1,3 +1,4 @@
+initDatabase();
 console.log(
 "SunWah Inventory Started"
 );
